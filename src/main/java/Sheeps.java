@@ -734,6 +734,34 @@ public class Sheeps {
 
     public static String expandedForm(int num) {
 
+//        String[] numStr = String.valueOf(num).split("");
+//        String result = "";
+//        int zeros = numStr.length - 1;
+//        for (int i = 0; i < numStr.length; i++) {
+//            switch (numStr[i]) {
+//                case "0":
+//                    zeros--;
+//                    break;
+//                default: {
+//                    if (i == 0) {
+//                        result += numStr[i];
+//                        for (int j = 0; j < zeros; j++) {
+//                            result += "0";
+//                        }
+//                        zeros--;
+//                    } else {
+//                        result = result + " + " + numStr[i];
+//                        for (int j = 0; j < zeros; j++) {
+//                            result += "0";
+//                        }
+//                        zeros--;
+//                    }
+//                    break;
+//                }
+//            }
+//        }
+//        return result;
+
         String[] numStr = String.valueOf(num).split("");
         String result = "";
         int zeros = numStr.length - 1;
@@ -1530,7 +1558,19 @@ public class Sheeps {
 
     public static String high(String s) {
         // Your code here...
-        return Arrays.stream(s.split(" ")).max(Comparator.comparing(x -> (x.length()*96) + x)).get();
+        return Arrays.stream(s.split(" ")).max(Comparator.comparing(x -> x.chars().sum())).get();
+    }
+
+    public static int [][] multiplicationTable(int n){
+        int[][] matrix = new int [n][n];
+        int num = 1;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                matrix[i][j] += num;
+                num++;
+            }
+        }
+        return matrix;
     }
 
     public static void main(String[] args) {

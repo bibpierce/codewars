@@ -3,7 +3,9 @@ import java.nio.charset.Charset;
 import java.text.DecimalFormat;
 import java.util.*;
 import java.util.Map.Entry;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import static java.lang.Character.toChars;
 import static java.lang.Character.toUpperCase;
@@ -126,31 +128,31 @@ public class Sheeps {
         return result;
     }
 
-    public static boolean check(String sentence) {
-        char[] letter = sentence.toCharArray();
-        for (int i = 0; i < letter.length; i++) {
-            if (!Character.isLetter(letter[i])) {
-                return false;
-            }
-        }
-        boolean[] alphabet = new boolean[26];
-        int index = 0;
-
-
-        for (int i = 0; i < sentence.length(); i++) {
-            if (sentence.charAt(i) >= 'a' && sentence.charAt(i) <= 'z') {
-                index = sentence.charAt(i) - 'a';
-            } else if (sentence.charAt(i) >= 'A' && sentence.charAt(i) <= 'Z') {
-                index = sentence.charAt(i) - 'A';
-            }
-            alphabet[index] = true;
-        }
-        for (int i = 0; i <= 25; i++) {
-            if (alphabet[i] == false)
-                return false;
-        }
-        return true;
-    }
+//    public static boolean check(String sentence) {
+//        char[] letter = sentence.toCharArray();
+//        for (int i = 0; i < letter.length; i++) {
+//            if (!Character.isLetter(letter[i])) {
+//                return false;
+//            }
+//        }
+//        boolean[] alphabet = new boolean[26];
+//        int index = 0;
+//
+//
+//        for (int i = 0; i < sentence.length(); i++) {
+//            if (sentence.charAt(i) >= 'a' && sentence.charAt(i) <= 'z') {
+//                index = sentence.charAt(i) - 'a';
+//            } else if (sentence.charAt(i) >= 'A' && sentence.charAt(i) <= 'Z') {
+//                index = sentence.charAt(i) - 'A';
+//            }
+//            alphabet[index] = true;
+//        }
+//        for (int i = 0; i <= 25; i++) {
+//            if (alphabet[i] == false)
+//                return false;
+//        }
+//        return true;
+//    }
 
 
     private static TreeMap<Integer, String> MAP;
@@ -863,22 +865,28 @@ public class Sheeps {
 
     public static int[] countPositivesSumNegatives(int[] input) {
 
-        int x = 0;
-        int y = 0;
-        if (input != null || input.length == 0) {
-            for (int i = 0; i < input.length; i++) {
-                if (input[i] > 0) {
-                    x++;
-                } else {
-                    y += input[i];
-                }
-            }
-            int[] answers = {x, y};
-            return answers;
-        } else {
-//            int[] answer = new int[0];
-            return new int[]{};
-        }
+        int[] result = new int[2];
+
+        result[0] = Arrays.stream(input).max().getAsInt();
+        result[1] = Arrays.stream(input).filter(x -> x == -x).sum();
+
+//        int x = 0;
+//        int y = 0;
+//        if (input != null || input.length == 0) {
+//            for (int i = 0; i < input.length; i++) {
+//                if (input[i] > 0) {
+//                    x++;
+//                } else {
+//                    y += input[i];
+//                }
+//            }
+//            int[] answers = {x, y};
+//            return answers;
+//        } else {
+////            int[] answer = new int[0];
+//            return new int[]{};
+//        }
+        return result;
     }
 
     static String greet(String name, String owner) {
@@ -1573,12 +1581,179 @@ public class Sheeps {
         return matrix;
     }
 
+    public static String bumps(final String road) {
+        return Arrays.stream(road.split("")).filter(x -> x.equals("n")).count() > 15 ? "Car Dead": "Woohoo!";
+    }
+
+    public static String reverseLetter(final String str) {
+        StringBuilder sb = new StringBuilder( str.replaceAll("[^A-Za-z]", ""));
+        return String.valueOf(sb.reverse());
+    }
+
+    public static int[] invert(int[] array) {
+
+        return Arrays.stream(array).map(x -> -x).toArray();
+    }
+
+    public static int howOld(final String herOld) {
+
+        //your code here, return correct age as int ; )
+        return Character.getNumericValue(herOld.charAt(0));
+    }
+
+    public static boolean validateUsr(String s) {
+
+        return s.matches("[a-z0-9]") || s.length() >= 4 && s.length() <= 16;
+    }
+
+    public static boolean isPlural(float f){
+        return f != 1;
+    }
+
+    public static int sumWithoutHighAndLow(int[] numbers){
+        if(numbers == null || numbers.length == 0){
+            return 0;
+        }
+        Arrays.sort(numbers);
+        int min = numbers[0];
+        int max = numbers[numbers.length-1];
+        return Arrays.stream(numbers).distinct().filter(x -> x!=min && x!=max).sum();
+    }
+
+    public static int[] pipeFix(int[] numbers) {
+        return IntStream.rangeClosed(numbers[0], numbers[numbers.length-1]).toArray();
+    }
+
+    public static int solve(final String s) {
+        String[] cons = s.split("[AEIOUaeiou]");
+        return Arrays.stream(cons).mapToInt(x -> x.chars().sum() - 96 * x.length()).max().getAsInt();
+    }
+
+    public static int squareDigits(int n) {
+        StringBuilder result = new StringBuilder();
+        int tmp = 0;
+        while(n > 0) {
+            tmp = n % 10;
+            result.append(tmp * tmp);
+            n /= 10;
+        }
+        return Integer.parseInt(String.valueOf(result.reverse()));
+    }
+
+    public static int roundToNext5(int number) {
+
+        return Math.abs(number % 10) == 0 || number % 10 == 5 ? number : number % 10 > 5 ? number - Math.abs(number % 10) + 10 : number - Math.abs(number % 10) + 5;
+    }
+
+    public static String makeComplement(String dna) {
+
+        return Arrays.stream(dna.split("")).map(x -> {
+            switch (x){
+                case "A" -> {return "T";}
+                case "T" -> {return "A";}
+                case "C" -> {return "G";}
+            } return "C";
+        }).collect(joining());
+        //Your code
+    }
+
+    public static int[] countBy(int x, int n){
+        int[] result = new int[n];
+        int temp = 0;
+        for (int i = 0; i < n; i++) {
+                temp += x;
+                result[i] = temp;
+        }
+        return result;
+    }
+
+    public static int[] minMax(int[] arr) {
+
+        return new int[] {Arrays.stream(arr).min().getAsInt(), Arrays.stream(arr).max().getAsInt()};
+    }
+
+    public static int Past(int h, int m, int s) {
+        return (h * 360000) + (m * 60000) + (s * 1000);
+    }
+
+    static int stray(int[] numbers) {
+        Arrays.sort(numbers);
+        return numbers[0] == numbers[1] ? numbers[numbers.length-1] : numbers[0];
+    }
+
+    public static String greet(String name){
+        return "Hello " + name.toLowerCase().replaceFirst("[a-z]", String.valueOf(Character.toUpperCase(name.charAt(0)))) + "!";
+    }
+
+    public static String order(String words) {
+        String[] w = words.split(" ");
+        Arrays.sort(w, Comparator.comparing(Sheeps::extractDouble));
+        return Arrays.stream(w).collect(joining(" "));
+    }
+
+    static double extractDouble(String s){
+        String num = s.replaceAll("[^\\d]", "");
+        return num.isEmpty() ? 0 : Double.parseDouble(num);
+    }
+
+//    public static String accum(String s) {
+//        AtomicInteger atomicInteger = new AtomicInteger();
+////        return Arrays.stream(s.split("")).map(x -> x.repeat(atomicInteger.incrementAndGet()).replaceFirst("[a-z]", String.valueOf(s.charAt(0)).toUpperCase()).collect(joining("-")));
+//    }
+
+    public static int predictAge(int age1, int age2, int age3, int age4, int age5, int age6, int age7, int age8) {
+        int[] s = {age1, age2, age3, age4, age5, age6, age7, age8};
+        int sum = Arrays.stream(s).map(x -> x*x).sum();
+        return (int) (Math.sqrt(sum) / 2);
+    }
+
+    public static int sortDesc(final int num) {
+        String s = Arrays.stream(String.valueOf(num).split("")).sorted(Collections.reverseOrder()).collect(joining());
+        return Integer.parseInt(s);
+    }
+
+    public static String printArray(Integer[] array) {
+        return String.join(",", Arrays.toString(array));
+    }
+
+//    public static int[] dataReverse(int[] data) {
+//        Arrays.stream(data).map
+//    }
+
+    public static boolean check(String sentence){
+
+    }
+
+    public static final String generateShape(int n) {
+        String sq = "";
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                sq += "+";
+            }
+
+        }
+        return sq;
+    }
+
+
+
+
+
     public static void main(String[] args) {
 
-        System.out.println(findUniq(new double[]{0, 1, 0}));
+        System.out.println(printArray(new Integer[] {1,2,3,4,5,6,7}));
 
-        Object[] s = {1,2,3,4,5,6,7,8,9,10};
-        System.out.println(josephusPermutation(Arrays.stream(s).toList(), 2));
+
+
+
+//        System.out.println(countBy(1, 10));
+//        System.out.println(squareDigits(222));
+
+//        System.out.println(findUniq(new double[]{0, 1, 0}));
+
+//        int[] s = {1,1,1,1,1,2,3,4,5,5,5,5,5};
+//        System.out.println(sumWithoutHighAndLow(s));
+//        System.out.println(josephusPermutation(Arrays.stream(s).toList(), 2));
 //        System.out.println(twoSum(s, -7));
 //        System.out.println(sumStrings("0000003284723", "000001"));
 

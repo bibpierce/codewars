@@ -4,6 +4,7 @@ import java.text.DecimalFormat;
 import java.util.*;
 import java.util.Map.Entry;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -11,12 +12,17 @@ import static java.lang.Character.toChars;
 import static java.lang.Character.toUpperCase;
 import static java.lang.Integer.parseInt;
 import static java.util.Arrays.sort;
+import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.joining;
 
 
-public class Sheeps {
+public class Sheeps extends Fighter{
 
     private static Exception InvalidParameterException;
+
+    public Sheeps(String name, int health, int damagePerAttack) {
+        super(name, health, damagePerAttack);
+    }
 
     public int countSheeps(Boolean[] arrayOfSheeps) {
         int n = 0;
@@ -338,13 +344,6 @@ public class Sheeps {
         return str.substring(1, str.length() - 1);
     }
 
-    public static int grow(int[] x) {
-        int mul = 1;
-        for (int i = 0; i < x.length; i++) {
-            mul *= x[i];
-        }
-        return mul;
-    }
 
     public static int makeNegative(final int x) {
         int result = x;
@@ -1055,9 +1054,7 @@ public class Sheeps {
 
     }
 
-    public static int duplicateCount(String text) {
-        return 3;
-    }
+
 
     public static int[] between(int a, int b) {
         int[] array = new int[(b - a) + 1];
@@ -1399,9 +1396,6 @@ public class Sheeps {
         return result;
     }
 
-    public static int[] rowWeights(final int[] weights) {
-        return new int[]{0, 0};
-    }
 
     public static int minValue(int[] values) {
 
@@ -1720,9 +1714,9 @@ public class Sheeps {
 //        Arrays.stream(data).map
 //    }
 
-    public static boolean check(String sentence){
-
-    }
+//    public static boolean check(String sentence){
+//
+//    }
 
     public static final String generateShape(int n) {
         String sq = "";
@@ -1736,16 +1730,108 @@ public class Sheeps {
     }
 
 
+    public static String isSortedAndHow(int[] array) {
+        int[] ascOrd = array;
+        int[] arrRev = Arrays.stream(array).boxed().sorted(Comparator.reverseOrder()).mapToInt(i -> i).toArray();
+        Arrays.sort(ascOrd);
+        return array == ascOrd ? "yes, ascending" : array == arrRev ? "yes, descending" : "no";
+
+
+    }
+
+    public static int[] take(int[] arr, int n) {
+        return Arrays.stream(arr).limit(n).toArray();
+    }
+
+    public static String howMuchILoveYou(int nb_petals) {
+        String res = "";
+        int x = nb_petals - ((nb_petals/6) *6);
+
+
+        switch(nb_petals < 6 ? nb_petals : x == 0 ? 6 : x) {
+            case 1:
+                res = "I love you";
+                break;
+
+            case 2:
+                res = "a little";
+                break;
+
+            case 3:
+                res = "a lot";
+                break;
+
+            case 4:
+                res = "passionately";
+                break;
+
+            case 5:
+                res = "madly";
+                break;
+
+            case 6:
+                res = "not at all";
+                break;
+
+        }
+        return res;
+    }
+
+    public static int duplicateCount(String text) {
+        String str[] = text.toLowerCase().split("");
+        String[] strArry = Arrays.stream(str).distinct().toArray(String[]::new);
+        int count = 0;
+        for (int i = 0; i < strArry.length; i++) {
+            int z = i;
+            if (Arrays.stream(str).filter(x -> x.equals(strArry[z])).count() > 1) count++;
+        }
+        return count;
+    }
+
+//    public static String declareWinner(Fighter fighter1, Fighter fighter2, String firstAttacker) {
+//        // Your code goes here. Have fun!
+//    }
+
+    public static int grow(int[] x){
+        return Arrays.stream(x).reduce(0 , (a, b) -> a*b);
+    }
+
+    public static int[] rowWeights (final int[] weights){
+        int evenIndex = 0;
+        int oddIndex = 0;
+        for (int i = 0; i < weights.length; i++) {
+            if(i % 2 == 0){
+                evenIndex +=weights[i];
+            } else {
+                oddIndex += weights[i];
+            }
+        }
+        return new int[]{evenIndex, oddIndex}; // Do your magic!
+    }
+
+    public static int findIt(int[] a) {
+
+        //Best Practice:
+//        int xor = 0;
+//        for (int i = 0; i < A.length; i++) {
+//            xor ^= A[i];
+//        }
+//        return xor;
+
+        return Arrays.stream(a).boxed()
+                .collect(groupingBy(Function.identity(), Collectors.counting()))
+                .entrySet()
+                .stream().filter(x -> x.getValue() % 2 == 1)
+                .sorted(Collections.reverseOrder((Entry.comparingByValue())))
+                .mapToInt(Entry::getKey)
+                .findFirst()
+                .getAsInt();
+    }
 
 
 
     public static void main(String[] args) {
-
-        System.out.println(printArray(new Integer[] {1,2,3,4,5,6,7}));
-
-
-
-
+        System.out.println(findIt(new int[]{1,1,1,1,1,1,10,1,1,1,1}));
 //        System.out.println(countBy(1, 10));
 //        System.out.println(squareDigits(222));
 

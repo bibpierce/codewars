@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.math.BigInteger;
 import java.nio.charset.Charset;
 import java.text.DecimalFormat;
@@ -413,25 +414,7 @@ public class Sheeps extends Fighter{
         return s.split(" ");
     }
 
-    public static boolean comp(int[] a, int[] b) {
-        int flag = 0;
-        boolean result = false;
-        for (int i = 0; i < a.length; i++) {
-            for (int j = 0; j < b.length; j++) {
-                if (a[i] == Math.sqrt(b[j])) {
-                    flag++;
-                    if (a[i] == a.length) {
-                        if (flag != a.length) {
-                            result = false;
-                        } else {
-                            result = true;
-                        }
-                    }
-                }
-            }
-        }
-        return result;
-    }
+
 
     public String dnaToRna(String dna) {
         return dna.contains("T") ? dna.replaceAll("T", "U") : dna;  // Do your magic!
@@ -1484,9 +1467,6 @@ public class Sheeps extends Fighter{
 
     }
 
-    public static int[] findEvenIndex(int[] arr) {
-        return Arrays.stream(arr).distinct().toArray();
-    }
 
     public static int[] twoSum(int[] numbers, int target) {
         int[] res = new int[2];
@@ -1828,10 +1808,38 @@ public class Sheeps extends Fighter{
                 .getAsInt();
     }
 
+    public static int findEvenIndex(int[] arr) {
+
+        int counter = 0;
+        for (int i = 0, j = arr.length-1; i < arr.length && j > 0; i++, j--) {
+                if(i == j){
+                    counter++;
+                    break;
+                }
+                else if(i+1 == j){
+                    break;
+                }
+                else if(arr[i] == arr[j]){
+                    counter++;
+                }
+        }
+        return counter;
+    }
+
+    public static boolean comp(int[] a, int[] b) {
+        return Arrays.equals(IntStream.of(b).map(x -> (int) Math.sqrt(x)).toArray(), IntStream.of(a).sorted().toArray());
+    }
 
 
     public static void main(String[] args) {
-        System.out.println(findIt(new int[]{1,1,1,1,1,1,10,1,1,1,1}));
+//        System.out.println(findEvenIndex(new int[]{1,2,3,4,5,4,3,2,1}));
+        Map<String, String> lem = new HashMap<>();
+        lem.put("Je ar Mahal ko", "Open");
+        for (Map.Entry<String, String> show: lem.entrySet()) {
+            System.out.println(show.getValue());
+            System.out.println(show.getKey());
+
+        }
 //        System.out.println(countBy(1, 10));
 //        System.out.println(squareDigits(222));
 
@@ -1861,7 +1869,6 @@ public class Sheeps extends Fighter{
 //        List<Integer> num = List.of(1,2,3,4,5,6,7,8,9,10);
 //        System.out.println(ans(10, 8));
 //        System.out.println(findWord("Listen look see learn", 3));
-
     }
 
     private static void josephusPermutation(Object[] objects, int i, Object[] objects1) {

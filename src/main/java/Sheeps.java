@@ -17,13 +17,10 @@ import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.joining;
 
 
-public class Sheeps extends Fighter{
+public class Sheeps {
 
     private static Exception InvalidParameterException;
 
-    public Sheeps(String name, int health, int damagePerAttack) {
-        super(name, health, damagePerAttack);
-    }
 
     public int countSheeps(Boolean[] arrayOfSheeps) {
         int n = 0;
@@ -415,7 +412,6 @@ public class Sheeps extends Fighter{
     }
 
 
-
     public String dnaToRna(String dna) {
         return dna.contains("T") ? dna.replaceAll("T", "U") : dna;  // Do your magic!
     }
@@ -494,19 +490,6 @@ public class Sheeps extends Fighter{
         return false;
     }
 
-
-    public static boolean isLove(final int flower1, final int flower2) {
-
-        boolean result;
-        if (flower1 % 2 == 0 && (flower2 & 1) == 1) {
-            result = true;
-        } else if (flower2 % 2 == 0 && (flower1 & 2) == 1) {
-            result = true;
-        } else {
-            result = false;
-        }
-        return result;
-    }
 
 //    public static int lastDigit(BigInteger n1, BigInteger n2) {
 //        BigInteger result = BigInteger.ONE;
@@ -1038,7 +1021,6 @@ public class Sheeps extends Fighter{
     }
 
 
-
     public static int[] between(int a, int b) {
         int[] array = new int[(b - a) + 1];
         for (int i = 0; i < array.length; i++) {
@@ -1485,15 +1467,14 @@ public class Sheeps extends Fighter{
     public static <T> List<T> josephusPermutation(final List<T> items, final int k) {
         int counter = k;
         List<T> res = new ArrayList<>();
-        while (res.size() != items.size()){
-            if(counter == items.size()){
+        while (res.size() != items.size()) {
+            if (counter == items.size()) {
                 counter = 1;
-            }
-            else if(counter > items.size()){
+            } else if (counter > items.size()) {
                 int carry = counter - items.size();
                 counter = carry;
             }
-            res.add(items.get(counter-1));
+            res.add(items.get(counter - 1));
             counter += k;
 
         }
@@ -1513,29 +1494,28 @@ public class Sheeps extends Fighter{
 
     public static double findUniq(double arr[]) {
         // Do the magic
-        double[] x  = Arrays.stream(arr).sorted().toArray();
-        return x[0] == x[1] ? x[0] : x[x.length-1];
+        double[] x = Arrays.stream(arr).sorted().toArray();
+        return x[0] == x[1] ? x[0] : x[x.length - 1];
     }
 
-    public static String showSequence(int value){
+    public static String showSequence(int value) {
         int sum = 0;
         String result = "";
-        if(value < 0){
+        if (value < 0) {
             return value + "<0";
-        }
-        else if(value == 0){
+        } else if (value == 0) {
             return "0=0";
-        }
-        else{
+        } else {
             for (int i = 0; i <= value; i++) {
                 sum += i;
-                result += "+"+i;
+                result += "+" + i;
             }
         }
         return result.replaceFirst("[+]", "") + "=" + sum;
     }
+
     public static String twoSort(String[] s) {
-        return String.join("***",Arrays.stream(s).sorted().findFirst().get().split(""));
+        return String.join("***", Arrays.stream(s).sorted().findFirst().get().split(""));
     }
 
     public static String high(String s) {
@@ -1543,8 +1523,8 @@ public class Sheeps extends Fighter{
         return Arrays.stream(s.split(" ")).max(Comparator.comparing(x -> x.chars().sum())).get();
     }
 
-    public static int [][] multiplicationTable(int n){
-        int[][] matrix = new int [n][n];
+    public static int[][] multiplicationTable(int n) {
+        int[][] matrix = new int[n][n];
         int num = 1;
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
@@ -1556,11 +1536,11 @@ public class Sheeps extends Fighter{
     }
 
     public static String bumps(final String road) {
-        return Arrays.stream(road.split("")).filter(x -> x.equals("n")).count() > 15 ? "Car Dead": "Woohoo!";
+        return Arrays.stream(road.split("")).filter(x -> x.equals("n")).count() > 15 ? "Car Dead" : "Woohoo!";
     }
 
     public static String reverseLetter(final String str) {
-        StringBuilder sb = new StringBuilder( str.replaceAll("[^A-Za-z]", ""));
+        StringBuilder sb = new StringBuilder(str.replaceAll("[^A-Za-z]", ""));
         return String.valueOf(sb.reverse());
     }
 
@@ -1580,22 +1560,22 @@ public class Sheeps extends Fighter{
         return s.matches("[a-z0-9]") || s.length() >= 4 && s.length() <= 16;
     }
 
-    public static boolean isPlural(float f){
+    public static boolean isPlural(float f) {
         return f != 1;
     }
 
-    public static int sumWithoutHighAndLow(int[] numbers){
-        if(numbers == null || numbers.length == 0){
+    public static int sumWithoutHighAndLow(int[] numbers) {
+        if (numbers == null || numbers.length == 0) {
             return 0;
         }
         Arrays.sort(numbers);
         int min = numbers[0];
-        int max = numbers[numbers.length-1];
-        return Arrays.stream(numbers).distinct().filter(x -> x!=min && x!=max).sum();
+        int max = numbers[numbers.length - 1];
+        return Arrays.stream(numbers).distinct().filter(x -> x != min && x != max).sum();
     }
 
     public static int[] pipeFix(int[] numbers) {
-        return IntStream.rangeClosed(numbers[0], numbers[numbers.length-1]).toArray();
+        return IntStream.rangeClosed(numbers[0], numbers[numbers.length - 1]).toArray();
     }
 
     public static int solve(final String s) {
@@ -1606,7 +1586,7 @@ public class Sheeps extends Fighter{
     public static int squareDigits(int n) {
         StringBuilder result = new StringBuilder();
         int tmp = 0;
-        while(n > 0) {
+        while (n > 0) {
             tmp = n % 10;
             result.append(tmp * tmp);
             n /= 10;
@@ -1622,28 +1602,35 @@ public class Sheeps extends Fighter{
     public static String makeComplement(String dna) {
 
         return Arrays.stream(dna.split("")).map(x -> {
-            switch (x){
-                case "A" -> {return "T";}
-                case "T" -> {return "A";}
-                case "C" -> {return "G";}
-            } return "C";
+            switch (x) {
+                case "A" -> {
+                    return "T";
+                }
+                case "T" -> {
+                    return "A";
+                }
+                case "C" -> {
+                    return "G";
+                }
+            }
+            return "C";
         }).collect(joining());
         //Your code
     }
 
-    public static int[] countBy(int x, int n){
+    public static int[] countBy(int x, int n) {
         int[] result = new int[n];
         int temp = 0;
         for (int i = 0; i < n; i++) {
-                temp += x;
-                result[i] = temp;
+            temp += x;
+            result[i] = temp;
         }
         return result;
     }
 
     public static int[] minMax(int[] arr) {
 
-        return new int[] {Arrays.stream(arr).min().getAsInt(), Arrays.stream(arr).max().getAsInt()};
+        return new int[]{Arrays.stream(arr).min().getAsInt(), Arrays.stream(arr).max().getAsInt()};
     }
 
     public static int Past(int h, int m, int s) {
@@ -1652,10 +1639,10 @@ public class Sheeps extends Fighter{
 
     static int stray(int[] numbers) {
         Arrays.sort(numbers);
-        return numbers[0] == numbers[1] ? numbers[numbers.length-1] : numbers[0];
+        return numbers[0] == numbers[1] ? numbers[numbers.length - 1] : numbers[0];
     }
 
-    public static String greet(String name){
+    public static String greet(String name) {
         return "Hello " + name.toLowerCase().replaceFirst("[a-z]", String.valueOf(Character.toUpperCase(name.charAt(0)))) + "!";
     }
 
@@ -1665,7 +1652,7 @@ public class Sheeps extends Fighter{
         return Arrays.stream(w).collect(joining(" "));
     }
 
-    static double extractDouble(String s){
+    static double extractDouble(String s) {
         String num = s.replaceAll("[^\\d]", "");
         return num.isEmpty() ? 0 : Double.parseDouble(num);
     }
@@ -1677,7 +1664,7 @@ public class Sheeps extends Fighter{
 
     public static int predictAge(int age1, int age2, int age3, int age4, int age5, int age6, int age7, int age8) {
         int[] s = {age1, age2, age3, age4, age5, age6, age7, age8};
-        int sum = Arrays.stream(s).map(x -> x*x).sum();
+        int sum = Arrays.stream(s).map(x -> x * x).sum();
         return (int) (Math.sqrt(sum) / 2);
     }
 
@@ -1725,10 +1712,10 @@ public class Sheeps extends Fighter{
 
     public static String howMuchILoveYou(int nb_petals) {
         String res = "";
-        int x = nb_petals - ((nb_petals/6) *6);
+        int x = nb_petals - ((nb_petals / 6) * 6);
 
 
-        switch(nb_petals < 6 ? nb_petals : x == 0 ? 6 : x) {
+        switch (nb_petals < 6 ? nb_petals : x == 0 ? 6 : x) {
             case 1:
                 res = "I love you";
                 break;
@@ -1772,16 +1759,16 @@ public class Sheeps extends Fighter{
 //        // Your code goes here. Have fun!
 //    }
 
-    public static int grow(int[] x){
-        return Arrays.stream(x).reduce(0 , (a, b) -> a*b);
+    public static int grow(int[] x) {
+        return Arrays.stream(x).reduce(0, (a, b) -> a * b);
     }
 
-    public static int[] rowWeights (final int[] weights){
+    public static int[] rowWeights(final int[] weights) {
         int evenIndex = 0;
         int oddIndex = 0;
         for (int i = 0; i < weights.length; i++) {
-            if(i % 2 == 0){
-                evenIndex +=weights[i];
+            if (i % 2 == 0) {
+                evenIndex += weights[i];
             } else {
                 oddIndex += weights[i];
             }
@@ -1811,17 +1798,15 @@ public class Sheeps extends Fighter{
     public static int findEvenIndex(int[] arr) {
 
         int counter = 0;
-        for (int i = 0, j = arr.length-1; i < arr.length && j > 0; i++, j--) {
-                if(i == j){
-                    counter++;
-                    break;
-                }
-                else if(i+1 == j){
-                    break;
-                }
-                else if(arr[i] == arr[j]){
-                    counter++;
-                }
+        for (int i = 0, j = arr.length - 1; i < arr.length && j > 0; i++, j--) {
+            if (i == j) {
+                counter++;
+                break;
+            } else if (i + 1 == j) {
+                break;
+            } else if (arr[i] == arr[j]) {
+                counter++;
+            }
         }
         return counter;
     }
@@ -1830,16 +1815,75 @@ public class Sheeps extends Fighter{
         return Arrays.equals(IntStream.of(b).map(x -> (int) Math.sqrt(x)).toArray(), IntStream.of(a).sorted().toArray());
     }
 
+    public static String encrypt(final String text, final int n) {
+        // Your code here
+        return null;
+    }
+
+//    public static String decrypt(final String encryptedText, final int n) {
+//        String text = encryptedText;
+//        String odd = "";
+//        String even = "";
+//        for (int i = 0; i < n; i++) {
+//            if( (even.length() + odd.length()) == text.length()){
+//                text = odd + even;
+//                odd = "";
+//                even = "";
+//            }
+//            for (int j = 0; j < text.length(); j++) {
+//                if(j % 2 == 0 ) {
+//                    even += text.charAt(j);
+//                }
+//                else {
+//                    odd += text.charAt(j);
+//                }
+//            }
+//
+//        }
+//        return text;
+//        Arrays.stream(text.split("")).filter()
+//    }
+
+    public static int[] race(int v1, int v2, int g) {
+        double diffSpeed = v2 - v1;
+        double hour = g / diffSpeed;
+        int hourRes = (int) hour;
+        double min = (hour % 1) * 60;
+        int minRes = (int) Math.floor(min);
+        int sec = (int) Math.round((min % 1) * 60);
+        if (sec == 60) {
+            sec = 0;
+            minRes += 1;
+        }
+        return new int[]{hourRes, minRes, sec};
+    }
+
+    public static int bouncingBall(double h, double bounce, double window) {
+
+        return 0;
+    }
+
+    public static boolean isLove(final int flower1, final int flower2) {
+
+        boolean result;
+        if (flower1 % 2 == 0 && (flower2 & 1) == 1) {
+            result = true;
+        } else if (flower2 % 2 == 0 && (flower1 & 2) == 1) {
+            result = true;
+        } else {
+            result = false;
+        }
+        System.out.println(result);
+        return result;
+    }
+
 
     public static void main(String[] args) {
+        isLove(1,4);
+//        int a = (int) (Math.random() * 100);
+//        System.out.println(race(a, a + 10, 68));
 //        System.out.println(findEvenIndex(new int[]{1,2,3,4,5,4,3,2,1}));
-        Map<String, String> lem = new HashMap<>();
-        lem.put("Je ar Mahal ko", "Open");
-        for (Map.Entry<String, String> show: lem.entrySet()) {
-            System.out.println(show.getValue());
-            System.out.println(show.getKey());
-
-        }
+//        System.out.println(decrypt("hsi  etTi sats!", 4));
 //        System.out.println(countBy(1, 10));
 //        System.out.println(squareDigits(222));
 

@@ -2,12 +2,15 @@ import java.io.IOException;
 import java.math.BigInteger;
 import java.nio.charset.Charset;
 import java.text.DecimalFormat;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.Map.Entry;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import static java.lang.Character.toChars;
 import static java.lang.Character.toUpperCase;
@@ -1877,9 +1880,30 @@ public class Sheeps {
         return result;
     }
 
+    public int sum(List<?> mixed) {
+        return mixed.stream().mapToInt(x -> x instanceof String ? Integer.parseInt(String.valueOf(x)) : (int) x).sum();
+    }
+
+    public static String remove(String s, int n){
+
+        String res = "";
+
+        for (int i = 0; i < n; i++) {
+            res = s.replaceFirst("!", "");
+        }
+        return res;
+    }
+
+    public static int findLongest(int[] numbers) {
+
+        String z = Stream.of(numbers).map(x -> String.valueOf(x).replaceAll("[^0-9]", "")).max(String::compareTo).get();
+        System.out.println(z);
+        return 1123;
+    }
 
     public static void main(String[] args) {
-        isLove(1,4);
+
+        System.out.println(findLongest(new int[] {1, 10, 100}));
 //        int a = (int) (Math.random() * 100);
 //        System.out.println(race(a, a + 10, 68));
 //        System.out.println(findEvenIndex(new int[]{1,2,3,4,5,4,3,2,1}));
